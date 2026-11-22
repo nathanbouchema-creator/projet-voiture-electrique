@@ -10,12 +10,12 @@ DOSSIER_FIGURES = RACINE / "figures"
 
 # Fichiers sources dans data/raw/.
 FICHIERS = {
-    "parc": "Donnees-sur-le-parc-de-vehicules-au-niveau-communal_2026-06.csv",
-    "neuf": "Immatriculations-de-vehicules-achetes-neufs-au-niveau-communal_2026-02.csv",
-    "occasion": "Immatriculations-de-vehicules-achetes-doccasion-au-niveau-communal_2026-02.csv",
+    "parc": "Donnees-sur-le-parc-de-vehicules-au-niveau-communal.2026-06.csv",
+    "neuf": "Immatriculations-de-vehicules-achetes-neufs-au-niveau-communal.2026-02.csv",
+    "occasion": "Immatriculations-de-vehicules-achetes-doccasion-au-niveau-communal.2026-02.csv",
     "aav": "AAV2020_au_01-01-2026.xlsx",
     "filosofi": "DS_FILOSOFI_CC_2023_data.csv",
-    "irve": "consolidation-etalab-schema-irve-statique-v-2_3_1-20261019.csv",
+    "irve": "consolidation-etalab-schema-irve-statique-v-2.3.1-20261019.csv",
     "bpe": "DS_BPE_2025_data.csv",
     "population": "DS_POPULATIONS_REFERENCE_2023_data.csv",
     "contours": "communes-50m.geojson",
