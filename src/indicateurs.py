@@ -140,16 +140,23 @@ def ajouter_classes_recharge(base, colonne="points_pour_1000_hab"):
     return base
 
 
-def sensibilite_petits_effectifs(base, groupe, nom="neuf", seuil=config.SEUIL_PETITS_EFFECTIFS):
+def sensibilite_petits_effectifs(base, groupe, nom="neuf", menages=False,
+                                 seuil=config.SEUIL_PETITS_EFFECTIFS):
     """Compare les résultats avec toutes les communes et sans celles qui ont
-    moins de `seuil` immatriculations. Affiche ce qui est retiré."""
-    petites = base[f"vp_{nom}"] < seuil
-    print(f"Communes retirées (moins de {seuil} immatriculations) : {petites.sum():,}")
-    print(f"Immatriculations retirées : {base.loc[petites, f'vp_{nom}'].sum():,.0f} "
-          f"sur {base[f'vp_{nom}'].sum():,.0f}")
+    moins de `seuil` immatriculations. Affiche ce qui est retiré.
 
-    complet = resume_par_groupe(base, groupe, nom)[["nb_communes", "mediane", "part_agregee"]]
-    filtre = resume_par_groupe(base[~petites], groupe, nom)[["nb_communes", "mediane", "part_agregee"]]
+    menages=True : immatriculations des seuls ménages (comme dans l'analyse du neuf).
+    """
+    total = f"vp_{nom}_men" if menages else f"vp_{nom}"
+    petites = base[total] < seuil
+    part_retiree = 100 * base.loc[petites, total].sum() / base[total].sum()
+    print(f"Communes retirées (moins de {seuil} immatriculations) : {petites.sum()} "
+          f"sur {base[total].notna().sum()}")
+    print(f"Part des immatriculations retirées : {part_retiree:.1f} %")
+
+    colonnes = ["nb_communes", "mediane", "part_agregee"]
+    complet = resume_par_groupe(base, groupe, nom, menages)[colonnes]
+    filtre = resume_par_groupe(base[~petites], groupe, nom, menages)[colonnes]
     return pd.concat({"toutes les communes": complet, f"au moins {seuil} immat.": filtre}, axis=1)
 
 
