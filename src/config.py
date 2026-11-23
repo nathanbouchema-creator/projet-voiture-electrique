@@ -21,9 +21,6 @@ FICHIERS = {
     "contours": "communes-50m.geojson",
 }
 
-FICHIER_DEPARTEMENTS = "departements-version-simplifiee.geojson"
-URL_DEPARTEMENTS = ("https://raw.githubusercontent.com/gregoiredavid/france-geojson/"
-                    "master/departements-version-simplifiee.geojson")
 
 CONTOURS_COL_CODE = "code"
 

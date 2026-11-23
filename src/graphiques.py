@@ -186,35 +186,3 @@ def tracer_carte(base, col_part, titre, nom_fichier, bornes=(0, 1, 2, 3, 4, 6, 1
     ax.set_title(titre + "\n(gris : donnée manquante)")
     enregistrer(fig, nom_fichier)
     return fig
-
-
-def tracer_carte_interactive(tableau, contours, colonne, titre, nom_fichier, infos=()):
-    """Carte interactive par département (Plotly), aussi enregistrée en HTML.
-
-    tableau : une ligne par département, indexé par le code ("01", "2A"...)
-    contours : GeoJSON des départements, avec les propriétés "code" et "nom"
-    infos : colonnes supplémentaires affichées au survol
-    """
-    import plotly.express as px
-
-    noms = {f["properties"]["code"]: f["properties"]["nom"] for f in contours["features"]}
-    donnees = tableau.reset_index().rename(columns={tableau.index.name or "index": "code"})
-    donnees["département"] = donnees["code"].map(noms)
-
-    fig = px.choropleth(
-        donnees,
-        geojson=contours,
-        locations="code",
-        featureidkey="properties.code",  # où trouver le code dans le GeoJSON
-        color=colonne,
-        color_continuous_scale="Blues",
-        hover_name="département",
-        hover_data={"code": True, colonne: ":.2f", **{c: ":.2f" for c in infos}},
-        title=titre,
-    )
-    fig.update_geos(fitbounds="locations", visible=False)
-    fig.update_layout(height=650, margin={"l": 0, "r": 0, "t": 50, "b": 0})
-
-    config.DOSSIER_FIGURES.mkdir(exist_ok=True)
-    fig.write_html(config.DOSSIER_FIGURES / f"{nom_fichier}.html", include_plotlyjs="cdn")
-    return fig

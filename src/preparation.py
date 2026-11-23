@@ -6,9 +6,6 @@ commune et une colonne `code_commune` (texte sur 5 caractères), prête à être
 jointe aux autres.
 """
 
-import json
-import urllib.request
-
 import numpy as np
 import pandas as pd
 
@@ -279,17 +276,3 @@ def preparer_population():
     })
     table["population"] = pd.to_numeric(table["population"], errors="coerce")
     return table
-
-
-# ---------------------------------------------------------------------------
-# 7. Contours des départements (carte interactive)
-# ---------------------------------------------------------------------------
-def lire_departements():
-    """Contours des départements au format GeoJSON (dictionnaire Python).
-    Le fichier est téléchargé dans data/raw/ s'il n'y est pas encore."""
-    chemin = config.DOSSIER_BRUT / config.FICHIER_DEPARTEMENTS
-    if not chemin.exists():
-        print(f"Téléchargement des contours des départements : {config.URL_DEPARTEMENTS}")
-        urllib.request.urlretrieve(config.URL_DEPARTEMENTS, chemin)
-    with open(chemin, encoding="utf-8") as f:
-        return json.load(f)
