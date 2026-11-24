@@ -167,6 +167,8 @@ def tracer_carte(base, col_part, titre, nom_fichier, bornes=(0, 1, 2, 3, 4, 6, 1
         print("Carte non tracée.")
         return None
 
+    # Uniquement les communes du référentiel (métropole) : sinon l'outre-mer élargit le cadre
+    communes = communes[communes["code_commune"].isin(base["code_commune"])]
     carte = communes.merge(base[["code_commune", col_part]], on="code_commune", how="left")
 
     etiquettes = [f"{bornes[i]} à {bornes[i + 1]} %" for i in range(len(bornes) - 2)]
