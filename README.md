@@ -86,9 +86,9 @@ Plan du notebook :
 0. vérification des fichiers présents ;
 1. référentiel des communes (classeur AAV, géographie 2026, France métropolitaine, Corse comprise) ;
 2. préparation des sources : parc et immatriculations (SDES), niveau de vie (Filosofi), population, gares (BPE), points de recharge (IRVE) ;
-3. jointures sur le référentiel et tableau de couverture ;
+3. jointures sur le référentiel, tableau de couverture et contrôles : codes perdus lors de la fusion (tous en outre-mer ou fictifs) et vérification sur des communes connues (Paris, Lyon, Marseille, Mende) ;
 4. calcul des indicateurs et contrôles de cohérence ;
-5. résultats commentés : synthèse régionale, comparaisons selon le territoire, le niveau de vie et l'offre de recharge, carte communale, puis analyses complémentaires (marché du neuf, croisement niveau de vie × territoire, présence d'une gare) ;
+5. résultats commentés : synthèse régionale, comparaisons selon le territoire, le niveau de vie et l'offre de recharge, carte communale, puis analyses complémentaires (marché du neuf avec un test de robustesse sur les petites communes, croisement niveau de vie × territoire, présence d'une gare) ;
 6. export de la base communale dans `data/processed/` ;
 7. conclusion.
 
