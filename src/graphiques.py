@@ -97,28 +97,6 @@ def tracer_barres(resume, titre, nom_fichier, label_groupe="", trier=True):
     return fig
 
 
-def tracer_boites(base, groupe, col_part, titre, nom_fichier):
-    """Distribution des parts communales par groupe (groupe doit être catégoriel).
-
-    Les valeurs extrêmes ne sont pas affichées, sinon les boîtes sont écrasées.
-    """
-    donnees = base.dropna(subset=[groupe, col_part])
-    groupes = [g for g in donnees[groupe].cat.categories if g in set(donnees[groupe])]
-    valeurs = [donnees.loc[donnees[groupe] == g, col_part] for g in groupes]
-    etiquettes = [f"{g}\n(n = {nombre(len(v))})" for g, v in zip(groupes, valeurs)]
-
-    fig, ax = plt.subplots()
-    ax.boxplot(valeurs, tick_labels=etiquettes, showfliers=False, widths=0.5,
-               patch_artist=True,
-               boxprops={"facecolor": "#cde2fb", "edgecolor": BLEU},
-               medianprops={"color": ORANGE, "linewidth": 2},
-               whiskerprops={"color": BLEU}, capprops={"color": BLEU})
-    ax.set_ylabel("Part électrique de la commune (%)")
-    ax.set_title(titre)
-    ax.grid(axis="x", visible=False)
-    enregistrer(fig, nom_fichier)
-    return fig
-
 
 def tracer_barres_groupees(tableau, titre, nom_fichier, label_x="", label_legende=""):
     """Lignes du tableau = groupes en abscisse, colonnes = séries (parts en %)."""
